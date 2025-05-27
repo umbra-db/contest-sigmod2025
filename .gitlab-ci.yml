@@ -1,0 +1,151 @@
+variables:
+  CCACHE_BASEDIR: "${CI_PROJECT_DIR}"
+  CCACHE_DIR: "${CI_PROJECT_DIR}/ccache"
+  CCACHE_COMPILERCHECK: "content"
+
+default:
+  cache:
+    key: ccache
+    paths:
+      - ccache/
+
+build_x86:
+  tags:
+    - sigmod-x86
+  script:
+    - ccache -s -v
+    - export CXX="ccache clang++-18"
+    - export CC="ccache clang-18"
+    - cmake -S . -B build -DFORCE_ASSERT=ON -Wno-dev -GNinja
+    - cmake --build build --target unit_tests internal_runner
+  after_script:
+    - tar -zcvf build.tar.gz build/unit_tests build/internal_runner
+  artifacts:
+    paths:
+      - ./build.tar.gz
+    expire_in: 1 hrs
+
+test_x86:
+  tags:
+    - sigmod-x86
+  before_script:
+    - tar -zxvf build.tar.gz
+  script:
+    - ./build/unit_tests
+  needs:
+    - build_x86
+
+run_x86:
+  tags:
+    - sigmod-x86
+  before_script:
+    - tar -zxvf build.tar.gz
+  script:
+    - ln -s /opt/data/sigmod-contest/.cache.db .cache.db
+    - ./build/internal_runner plans.json
+  needs:
+    - build_x86
+
+build_ppc64le_vsx:
+  tags:
+    - sigmod-x86
+  script:
+    - ccache -s -v
+    - export CXX="ccache clang++-18"
+    - export CC="ccache clang-18"
+    - cmake -S . -B build -DCMAKE_C_COMPILER_TARGET="powerpc64le-linux-gnu" -DCMAKE_CXX_COMPILER_TARGET="powerpc64le-linux-gnu" 
+                          -DCMAKE_SYSTEM_PROCESSOR="ppc64" -DCMAKE_SYSTEM_NAME="Linux" -DCMAKE_CXX_FLAGS_INIT="-mcpu=power8" -Wno-dev -GNinja
+    - cmake --build build --target unit_tests internal_runner
+  after_script:
+    - tar -zcvf build.tar.gz build/_deps/duckdb-build/src/libduckdb.so build/unit_tests build/internal_runner
+  artifacts:
+    paths:
+      - ./build.tar.gz
+    expire_in: 1 hrs
+
+test_ppc64le_vsx:
+  tags:
+    - sigmod-x86
+  before_script:
+    - tar -zxvf build.tar.gz
+  script:
+    - qemu-ppc64le-static -cpu power9 -L /usr/powerpc64le-linux-gnu/ ./build/unit_tests
+  needs:
+    - build_ppc64le_vsx
+
+build_ppc64le_mma:
+  tags:
+    - sigmod-x86
+  script:
+    - ccache -s -v
+    - export CXX="ccache clang++-18"
+    - export CC="ccache clang-18"
+    - cmake -S . -B build -DCMAKE_C_COMPILER_TARGET="powerpc64le-linux-gnu" -DCMAKE_CXX_COMPILER_TARGET="powerpc64le-linux-gnu"
+                          -DCMAKE_SYSTEM_PROCESSOR="ppc64" -DCMAKE_SYSTEM_NAME="Linux" -DCMAKE_CXX_FLAGS_INIT="-mcpu=power10" -Wno-dev -GNinja
+    - cmake --build build --target unit_tests internal_runner
+  after_script:
+    - tar -zcvf build.tar.gz build/_deps/duckdb-build/src/libduckdb.so build/unit_tests build/internal_runner
+  artifacts:
+    paths:
+      - ./build.tar.gz
+    expire_in: 1 hrs
+
+test_ppc64le_mma:
+  tags:
+    - sigmod-x86
+  before_script:
+    - tar -zxvf build.tar.gz
+  script:
+    - qemu-ppc64le-static -cpu power10 -L /usr/powerpc64le-linux-gnu/ ./build/unit_tests 
+  needs:
+    - build_ppc64le_mma
+
+run_ppc64le_vsx:
+  tags:
+    - sigmod-x86
+  before_script:
+    - tar -zxvf build.tar.gz
+  script:
+    - ln -s /opt/data/sigmod-contest/.cache.db .cache.db
+    - REPEAT=1 qemu-ppc64le-static -cpu power9 -L /usr/powerpc64le-linux-gnu/ ./build/internal_runner plans.json
+  needs:
+    - build_ppc64le_vsx
+
+run_ppc64le_mma:
+  tags:
+    - sigmod-x86
+  before_script:
+    - tar -zxvf build.tar.gz
+  script:
+    - ln -s /opt/data/sigmod-contest/.cache.db .cache.db
+    - REPEAT=1 qemu-ppc64le-static -cpu power10 -L /usr/powerpc64le-linux-gnu/ ./build/internal_runner plans.json
+  needs:
+    - build_ppc64le_mma
+
+#build_arm:
+#  stage: build
+#  tags:
+#    - sigmod-arm
+#  script:
+#    - ccache -s -v
+#    - export CXX="ccache clang++"
+#    - export CC="ccache clang"
+#    - cmake -S . -B build
+#    - cmake --build build -- -j $(nproc)
+#  after_script:
+#    - tar -zcvf build.tar.gz build/_deps/duckdb-build/src/libduckdb.dylib build/unit_tests
+#  artifacts:
+#    paths:
+#      - ./build.tar.gz
+#    expire_in: 1 hrs
+#
+#test_arm:
+#  stage: test
+#  tags:
+#    - sigmod-arm
+#  before_script:
+#    - tar -zxvf build.tar.gz
+#  script:
+#    - ./build/unit_tests
+#  dependencies:
+#    - build_arm

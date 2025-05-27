@@ -1,0 +1,584 @@
+{
+  "aka_name": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "person_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "name": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "imdb_index": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "name_pcode_cf": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "name_pcode_nf": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "surname_pcode": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "md5sum": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "aka_title": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "movie_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "title": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "imdb_index": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "kind_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "production_year": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "phonetic_code": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "episode_of_id": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "season_nr": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "episode_nr": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "note": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "md5sum": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "cast_info": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "person_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "movie_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "person_role_id": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "note": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "nr_order": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "role_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "char_name": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "name": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "imdb_index": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "imdb_id": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "name_pcode_nf": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "surname_pcode": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "md5sum": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "comp_cast_type": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "kind": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "company_name": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "name": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "country_code": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "imdb_id": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "name_pcode_nf": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "name_pcode_sf": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "md5sum": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "company_type": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "kind": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "complete_cast": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "movie_id": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "subject_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "status_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "info_type": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "info": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "keyword": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "keyword": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "phonetic_code": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "kind_type": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "kind": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "link_type": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "link": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "movie_companies": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "movie_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "company_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "company_type_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "note": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "movie_info": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "movie_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "info_type_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "info": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "note": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "movie_info_idx": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "movie_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "info_type_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "info": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "note": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "movie_keyword": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "movie_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "keyword_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "movie_link": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "movie_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "linked_movie_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "link_type_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "name": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "name": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "imdb_index": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "imdb_id": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "gender": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "name_pcode_cf": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "name_pcode_nf": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "surname_pcode": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "md5sum": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "person_info": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "person_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "info_type_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "info": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "note": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  },
+  "role_type": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "role": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    }
+  },
+  "title": {
+    "id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": true
+    },
+    "title": {
+      "type": "text",
+      "not_null": true,
+      "primary_key": false
+    },
+    "imdb_index": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "kind_id": {
+      "type": "integer",
+      "not_null": true,
+      "primary_key": false
+    },
+    "production_year": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "imdb_id": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "phonetic_code": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "episode_of_id": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "season_nr": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "episode_nr": {
+      "type": "integer",
+      "not_null": false,
+      "primary_key": false
+    },
+    "series_years": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    },
+    "md5sum": {
+      "type": "text",
+      "not_null": false,
+      "primary_key": false
+    }
+  }
+}
